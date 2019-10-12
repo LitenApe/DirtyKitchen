@@ -8,8 +8,6 @@
  * toNumber("1a2b 3c"); // => "123"
  * toNumber("12,3a.123"); // => "123.123"
  */
-function toNumber(value: string = ""): string {
+export function toNumber(value: string = ""): string {
   return value.replace(/[^0-9.]/g, "")
 }
-
-export default toNumber;

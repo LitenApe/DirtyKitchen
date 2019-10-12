@@ -6,14 +6,12 @@
  * 
  * @example
  * const number = 123456.789;
- * toCurrency()(number); // => "123 456.789"
+ * toCurrency()(number); // => "123 456,789"
  * toCurrency("de-DE")(number) // => "123.456,789"
- * toCurrency("en-IN")(number) // => "1,23,456.789"
+ * toCurrency("en-IN")(number) // => "123,456.789"
  */
-function toCurrency(locale: string = "nb-NO"): (value: number) => string {
-  return function(value: number): string {
+export function toCurrency(locale: string = "nb-NO"): (value: number) => string {
+  return function converter(value: number): string {
     return new Intl.NumberFormat(locale).format(value);
   };
 }
-
-export default toCurrency;
