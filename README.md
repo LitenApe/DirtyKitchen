@@ -9,7 +9,7 @@ Builds the collection of utility functions and writes the output to a dist folde
 npm run compile
 ```
 
-Delete dist folder as the TypeScript compiler crashes if an types directory exist before compiling source
+Delete dist folder as the TypeScript compiler crashes if a types directory exist before compiling source
 ```bash
 npm run clean
 ```
