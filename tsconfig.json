@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "declaration": true,
+    "declarationDir": "dist/types",
+    "downlevelIteration": true,
+    "listEmittedFiles": true,
+    "listFiles": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist",
+    "pretty": true,
+    "removeComments": true,
+    "rootDir": "lib",
+    "strict": true,
+    "stripInternal": true,
+    "target": "es5"
+  },
+  "exclude": ["node_modules", "dist"]
+}

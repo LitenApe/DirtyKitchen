@@ -1,0 +1,31 @@
+{
+  "name": "dirty-kitchen",
+  "version": "0.0.6",
+  "description": "Collection of features and utility functions that can be used in most javascript projects",
+  "scripts": {
+    "build": "npm run clean && npm run compile",
+    "clean": "rm -rf ./dist",
+    "compile": "tsc"
+  },
+  "keywords": [
+    "JavaScript",
+    "TypeScript",
+    "Utility",
+    "util",
+    "stdlib",
+    "modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LitenApe/DirtyKitchen"
+  },
+  "bugs": {
+    "url": "https://github.com/LitenApe/DirtyKitchen/issues"
+  },
+  "homepage": "https://github.com/LitenApe/DirtyKitchen",
+  "author": "LitenApe",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "typescript": "^3.6.4"
+  }
+}
