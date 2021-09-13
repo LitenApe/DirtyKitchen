@@ -3,15 +3,15 @@
  * @param arr list of items we want to extract an element from
  * @returns random item from supplied list
  */
-function random<T>(arr: Array<T>): T;
+export function random<T>(arr: Array<T>): T;
 /**
  * Retrieve a random number between two boundary values
  * @param {number} min minimum value to be returned
  * @param {number} max maximum value to be returned
  * @param {boolean} floor a flag to decide if the function should remove decimals
  */
-function random(min: number, max: number, floor: boolean): number;
-function random<T>(
+export function random(min: number, max: number, floor: boolean): number;
+export function random<T>(
   arrOrMin: Array<T> | number,
   max?: number,
   floor: boolean = false
