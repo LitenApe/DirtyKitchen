@@ -10,31 +10,28 @@ function appendResult(locale: string) {
 }
 
 describe('converts to norwegian format by default', () => {
-  test.each(appendResult('nb-NO'))(
-    'converts %value to %result',
-    (value, result) => {
-      expect(toCurrency()(value as number)).toBe(result);
-    }
-  );
+  test.each(appendResult('nb-NO'))('converts %d to %s', (value, result) => {
+    expect(toCurrency()(value as number)).toBe(result);
+  });
 });
 
 describe('converts to other formats format when specified', () => {
   test.each(appendResult('en-IN'))(
-    '[en-IN] converts %value to %result',
+    '[en-IN] converts %d to %s',
     (value, result) => {
       expect(toCurrency('en-IN')(value as number)).toBe(result);
     }
   );
 
   test.each(appendResult('ja-JP'))(
-    '[ja-JP] converts %value to %result',
+    '[ja-JP] converts %d to %s',
     (value, result) => {
       expect(toCurrency('ja-JP')(value as number)).toBe(result);
     }
   );
 
   test.each(appendResult('de-DE'))(
-    '[de-DE] converts %value to %result',
+    '[de-DE] converts %d to %s',
     (value, result) => {
       expect(toCurrency('de-DE')(value as number)).toBe(result);
     }
