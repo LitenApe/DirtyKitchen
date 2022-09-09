@@ -10,11 +10,11 @@ export function random<T>(arr: Array<T>): T;
  * @param {number} max maximum value to be returned
  * @param {boolean} floor a flag to decide if the function should remove decimals
  */
-export function random(min: number, max: number, floor: boolean): number;
+export function random(min: number, max: number, floor?: boolean): number;
 export function random<T>(
   arrOrMin: Array<T> | number,
   max?: number,
-  floor: boolean = false
+  floor?: boolean,
 ): T | number {
   const isArray = Array.isArray(arrOrMin);
 
@@ -24,10 +24,10 @@ export function random<T>(
   } else if (typeof arrOrMin === 'number' && typeof max === 'number') {
     const min = arrOrMin;
     const number = Math.random() * (max - min) + min;
-    return floor ? Math.floor(number) : number;
+    return Boolean(floor) ? Math.floor(number) : number;
   } else {
     throw new Error(
-      'Invalid arguments! Either provide an array or boundary values'
+      'Invalid arguments! Either provide an array or boundary values',
     );
   }
 }
