@@ -20,21 +20,21 @@ describe('converts to other formats format when specified', () => {
     '[en-IN] converts %d to %s',
     (value, result) => {
       expect(toCurrency('en-IN')(value as number)).toBe(result);
-    }
+    },
   );
 
   test.each(appendResult('ja-JP'))(
     '[ja-JP] converts %d to %s',
     (value, result) => {
       expect(toCurrency('ja-JP')(value as number)).toBe(result);
-    }
+    },
   );
 
   test.each(appendResult('de-DE'))(
     '[de-DE] converts %d to %s',
     (value, result) => {
       expect(toCurrency('de-DE')(value as number)).toBe(result);
-    }
+    },
   );
 
   test('confirms that the various locales differ', () => {
