@@ -2,7 +2,7 @@ import { random } from '../random';
 
 const iterations = 1000;
 
-describe('retrieves random number inside boundaries', () => {
+describe('random', () => {
   test('returned number is always higher then minimum boundary', () => {
     const min = 10;
     Array.from({ length: iterations }).forEach(() => {

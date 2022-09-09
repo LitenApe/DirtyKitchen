@@ -1,6 +1,6 @@
 import { toNumberFormat } from '../toNumberFormat';
 
-describe('formats number string according to pre-determined format', () => {
+describe('toNumberFormat', () => {
   test('non numbers are removed', () => {
     const converter = toNumberFormat('### ## ###');
 
