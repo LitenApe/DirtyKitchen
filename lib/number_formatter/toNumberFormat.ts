@@ -10,19 +10,19 @@
  * toNumberFormat("### ### ###")("12345"); // => "123 45"
  */
 export function toNumberFormat(format: string): (value: string) => string {
-  return function converter(value: string): string {
-    if (!format) { return value; }
+    return function converter(value: string): string {
+        if (!format) { return value; }
 
-    const digits = value.match(/\d/g);
-    let result = "";
+        const digits = value.match(/\d/g);
+        let result = '';
 
-    if (!digits) return result;
+        if (!digits) return result;
 
-    for (let i = 0; i < format.length && digits.length > 0; i++) {
-      const char = format.charAt(i);
-      result += char === "#" && digits ? digits.shift() : char;
-    }
+        for (let i = 0; i < format.length && digits.length > 0; i++) {
+            const char = format.charAt(i);
+            result += char === '#' && digits ? digits.shift() : char;
+        }
 
-    return result;
-  };
+        return result;
+    };
 }

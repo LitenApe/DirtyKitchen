@@ -12,22 +12,22 @@ export function random<T>(arr: Array<T>): T;
  */
 export function random(min: number, max: number, floor?: boolean): number;
 export function random<T>(
-  arrOrMin: Array<T> | number,
-  max?: number,
-  floor?: boolean,
+    arrOrMin: Array<T> | number,
+    max?: number,
+    floor?: boolean,
 ): T | number {
-  const isArray = Array.isArray(arrOrMin);
+    const isArray = Array.isArray(arrOrMin);
 
-  if (isArray) {
-    const arr = arrOrMin;
-    return arr[random(0, arrOrMin.length - 1, true)];
-  } else if (typeof arrOrMin === 'number' && typeof max === 'number') {
-    const min = arrOrMin;
-    const number = Math.random() * (max - min) + min;
-    return Boolean(floor) ? Math.floor(number) : number;
-  } else {
-    throw new Error(
-      'Invalid arguments! Either provide an array or boundary values',
-    );
-  }
+    if (isArray) {
+        const arr = arrOrMin;
+        return arr[random(0, arrOrMin.length - 1, true)];
+    } else if (typeof arrOrMin === 'number' && typeof max === 'number') {
+        const min = arrOrMin;
+        const number = Math.random() * (max - min) + min;
+        return floor ? Math.floor(number) : number;
+    } else {
+        throw new Error(
+            'Invalid arguments! Either provide an array or boundary values',
+        );
+    }
 }
