@@ -3,18 +3,30 @@ import { isNull, isUndefined } from '../type_checks';
 import { sortNodes } from './utils';
 
 export class DescendantManager {
-    private _descendants = new Map<HTMLElement, number>();
+    private _descendants = new Map<Element, number>();
 
-    register(node: HTMLElement | null): void {
+    /**
+   * Add a node to the list of descendant, to find out
+   * it's position in relation to other nodes in the vicinity
+   * @param node node we wish to know the position of
+   * @returns returns the nodes position in correlation to other registered nodes
+   */
+    register(node: Element | null): number {
         if (isNull(node)) {
-            return;
+            return -1;
         }
 
         this._descendants.set(node, -1);
         this.sort();
+        return this.getIndex(node);
     }
 
-    unregister(node: HTMLElement | null): void {
+    /**
+   * Remove node from list of descendants
+   * @param node node we wish to remove
+   * @returns
+   */
+    unregister(node: Element | null): void {
         if (isNull(node)) {
             return;
         }
@@ -23,12 +35,21 @@ export class DescendantManager {
         this.sort();
     }
 
+    /**
+   * sorts all registered descendants and keep positions up to date
+   */
     private sort() {
-        const sorted = sortNodes(this._descendants.keys());
+        const keys = Array.from(this._descendants.keys());
+        const sorted = sortNodes(keys);
         sorted.forEach((node, index) => this._descendants.set(node, index));
     }
 
-    getIndex(node: HTMLElement | null): number {
+    /**
+   * Get the index of the respective node
+   * @param node the node we wish to know the position of
+   * @returns number representing the position, -1 if node is not registered
+   */
+    getIndex(node: Element | null): number {
         if (isNull(node)) {
             return -1;
         }

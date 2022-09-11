@@ -1,4 +1,4 @@
-export function sortNodes(nodes: Array<HTMLElement>) {
+export function sortNodes(nodes: Array<Element>) {
     return nodes.sort((a, b) => {
         const compare = a.compareDocumentPosition(b);
 
