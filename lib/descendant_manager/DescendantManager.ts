@@ -1,6 +1,5 @@
+import { getNextIndex, getPreviousIndex, sortNodes } from './utils';
 import { isNull, isUndefined } from '../type_checks';
-
-import { sortNodes } from './utils';
 
 export class DescendantManager {
     private _descendants = new Map<Element, number>();
@@ -61,5 +60,44 @@ export class DescendantManager {
         }
 
         return position;
+    }
+
+    /**
+   * get next node
+   * @param node the current node
+   * @returns returns the next node in the list, undefined if we are at the last element and loop is set to false
+   */
+    getNext(node: Element | null, loop = false): Element | undefined {
+        if (isNull(node)) {
+            return undefined;
+        }
+
+        const current = this.getIndex(node);
+
+        if (current === -1) {
+            return undefined;
+        }
+
+        const values = Array.from(this._descendants.entries());
+        const nextIndex = getNextIndex(current, values.length, loop);
+        const next = values.find(([_, position]) => nextIndex === position);
+        return isUndefined(next) ? undefined : next[0];
+    }
+
+    getPrevious(node: Element | null, loop = false): Element | undefined {
+        if (isNull(node)) {
+            return undefined;
+        }
+
+        const current = this.getIndex(node);
+
+        if (current === -1) {
+            return undefined;
+        }
+
+        const values = Array.from(this._descendants.entries());
+        const previousIndex = getPreviousIndex(current, values.length, loop);
+        const previous = values.find(([_, position]) => previousIndex === position);
+        return isUndefined(previous) ? undefined : previous[0];
     }
 }

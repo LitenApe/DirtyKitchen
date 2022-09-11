@@ -28,3 +28,31 @@ export function sortNodes(nodes: Array<Element>) {
         return 0;
     });
 }
+
+export function getNextIndex(
+    current: number,
+    max: number,
+    loop: boolean,
+): number {
+    const next = current + 1;
+
+    if (loop && next >= max) {
+        return 0;
+    }
+
+    return next;
+}
+
+export function getPreviousIndex(
+    current: number,
+    max: number,
+    loop: boolean,
+): number {
+    const next = current - 1;
+
+    if (loop && next === -1) {
+        return max - 1;
+    }
+
+    return next;
+}
