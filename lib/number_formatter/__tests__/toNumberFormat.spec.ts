@@ -23,4 +23,10 @@ describe('toNumberFormat', () => {
 
         expect(converter('12345678')).toBe('123 45 678');
     });
+
+    test('overflow is discarded', () => {
+        const converter = toNumberFormat('### ## ###');
+
+        expect(converter('1234567890')).toBe('123 45 678');
+    });
 });
