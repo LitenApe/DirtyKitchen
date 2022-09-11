@@ -69,4 +69,24 @@ describe('DescendantManager', () => {
         expect(manager.getIndex(nodeThree)).toBe(0);
         expect(manager.getIndex(nodeOne)).toBe(-1);
     });
+
+    test('nested node has higher position then parent', () => {
+        const manager = new DescendantManager();
+
+        document.body.innerHTML = `
+      <div id="node_1"><div id="node_2"><div id="node_3"></div></div></div>
+    `;
+
+        const nodeOne = document.querySelector('#node_1');
+        const nodeTwo = document.querySelector('#node_2');
+        const nodeThree = document.querySelector('#node_3');
+
+        manager.register(nodeOne);
+        manager.register(nodeTwo);
+        manager.register(nodeThree);
+
+        expect(manager.getIndex(nodeOne)).toBe(0);
+        expect(manager.getIndex(nodeTwo)).toBe(1);
+        expect(manager.getIndex(nodeThree)).toBe(2);
+    });
 });
