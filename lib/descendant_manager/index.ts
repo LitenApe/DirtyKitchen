@@ -1,0 +1,1 @@
+export { DescendantManager } from './DescendantManager';
