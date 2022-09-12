@@ -1,6 +1,11 @@
 import { getNextIndex, getPreviousIndex, sortNodes } from './utils';
 import { isNull, isUndefined } from '../type_checks';
 
+/**
+ * Keep track of where HTML nodes are in the DOM Tree in
+ * relation to each other by registering and sorting nodes
+ * of interest.
+ */
 export class DescendantManager {
     private _descendants = new Map<Element, number>();
 
