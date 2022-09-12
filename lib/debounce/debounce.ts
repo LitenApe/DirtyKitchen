@@ -6,7 +6,7 @@ export function debounce<P extends Array<unknown>>(
   func: GenericFunction<P>,
   delay = 300,
 ) {
-  let timer: NodeJS.Timeout;
+  let timer: NodeJS.Timeout | undefined;
 
   return (...params: P): void => {
     if (!isUndefined(timer)) {
@@ -15,6 +15,7 @@ export function debounce<P extends Array<unknown>>(
 
     timer = setTimeout(() => {
       func(...params);
+      timer = undefined;
     }, delay);
   };
 }
