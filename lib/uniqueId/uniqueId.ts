@@ -16,9 +16,9 @@ const dirtyIdHistory: { [key: string]: number } = {};
  * dirtyIds("user_"); // "user_1"
  */
 export function uniqueId(prefix = 'dirty_'): string {
-    if (!dirtyIdHistory[prefix]) {
-        dirtyIdHistory[prefix] = 0;
-    }
+  if (!dirtyIdHistory[prefix]) {
+    dirtyIdHistory[prefix] = 0;
+  }
 
-    return `${prefix}${++dirtyIdHistory[prefix]}`;
+  return `${prefix}${++dirtyIdHistory[prefix]}`;
 }

@@ -9,5 +9,5 @@
  * toNumber("12,3a.123"); // => "123.123"
  */
 export function toNumber(value = ''): string {
-    return value.replace(/[^0-9.]/g, '');
+  return value.replace(/[^0-9.]/g, '');
 }

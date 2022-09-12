@@ -11,9 +11,9 @@
  * toCurrency("en-IN")(number) // => "123,456.789"
  */
 export function toCurrency(
-    locale = 'nb-NO',
+  locale = 'nb-NO',
 ): (value: number) => string {
-    return function converter(value: number): string {
-        return new Intl.NumberFormat(locale).format(value);
-    };
+  return function converter(value: number): string {
+    return new Intl.NumberFormat(locale).format(value);
+  };
 }
