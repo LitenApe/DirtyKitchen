@@ -1,5 +1,3 @@
-import { isDefined } from '../type_checks';
-
 /**
  * Delay function invocation until after a set time
  * has elapsed since the last time the debounced function
@@ -15,9 +13,7 @@ export function debounce<P extends Array<unknown>>(
   let timer: NodeJS.Timeout | undefined;
 
   return function (...params: P): { flush: () => void; cancel: () => void } {
-    if (isDefined(timer)) {
-      clearTimeout(timer);
-    }
+    clearTimeout(timer);
 
     timer = setTimeout(() => {
       func(...params);
@@ -25,10 +21,8 @@ export function debounce<P extends Array<unknown>>(
     }, delay);
 
     function cancel() {
-      if (isDefined(timer)) {
-        clearTimeout(timer);
-        timer = undefined;
-      }
+      clearTimeout(timer);
+      timer = undefined;
     }
 
     function flush(): void {
