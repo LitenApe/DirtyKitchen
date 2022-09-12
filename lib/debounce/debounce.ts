@@ -1,15 +1,23 @@
-import { isUndefined } from '../type_checks';
+import { isDefined } from '../type_checks';
 
 type GenericFunction<P extends Array<unknown>> = (...params: P) => void;
 
+/**
+ * Delay function invocation until after a set time
+ * has elapsed since the last time the debounced function
+ * was last invoked.
+ * @param func function we want to debounce
+ * @param delay time in milliseconds before the function is invoked
+ * @returns debounced function
+ */
 export function debounce<P extends Array<unknown>>(
   func: GenericFunction<P>,
   delay = 300,
-) {
+): (...params: P) => void {
   let timer: NodeJS.Timeout | undefined;
 
-  return (...params: P): void => {
-    if (!isUndefined(timer)) {
+  return function (...params: P): { flush: () => void; cancel: () => void } {
+    if (isDefined(timer)) {
       clearTimeout(timer);
     }
 
@@ -17,5 +25,19 @@ export function debounce<P extends Array<unknown>>(
       func(...params);
       timer = undefined;
     }, delay);
+
+    function cancel() {
+      if (isDefined(timer)) {
+        clearTimeout(timer);
+        timer = undefined;
+      }
+    }
+
+    function flush(): void {
+      cancel();
+      func(...params);
+    }
+
+    return { flush, cancel };
   };
 }
