@@ -1,7 +1,5 @@
 import { isDefined } from '../type_checks';
 
-type GenericFunction<P extends Array<unknown>> = (...params: P) => void;
-
 /**
  * Delay function invocation until after a set time
  * has elapsed since the last time the debounced function
@@ -11,7 +9,7 @@ type GenericFunction<P extends Array<unknown>> = (...params: P) => void;
  * @returns debounced function
  */
 export function debounce<P extends Array<unknown>>(
-  func: GenericFunction<P>,
+  func: (...params: P) => void,
   delay = 300,
 ): (...params: P) => void {
   let timer: NodeJS.Timeout | undefined;
