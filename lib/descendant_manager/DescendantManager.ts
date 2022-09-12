@@ -42,7 +42,7 @@ export class DescendantManager {
   /**
    * sorts all registered descendants and keep positions up to date
    */
-  private sort() {
+  private sort(): void {
     const keys = Array.from(this._descendants.keys());
     const sorted = sortNodes(keys);
     sorted.forEach((node, index) => this._descendants.set(node, index));

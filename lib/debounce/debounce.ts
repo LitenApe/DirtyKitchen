@@ -8,7 +8,7 @@ export function debounce<P extends Array<unknown>>(
 ) {
   let timer: NodeJS.Timeout;
 
-  return (...params: P) => {
+  return (...params: P): void => {
     if (!isUndefined(timer)) {
       clearTimeout(timer);
     }
