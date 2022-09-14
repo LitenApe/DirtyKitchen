@@ -4,10 +4,10 @@
   "description": "Collection of features and utility functions that can be used in most javascript projects",
   "scripts": {
     "build": "npm run clean && npm run compile",
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./lib",
     "compile": "tsc",
     "test": "jest",
-    "format": "eslint lib/** --fix"
+    "format": "eslint src/** --fix"
   },
   "keywords": [
     "JavaScript",

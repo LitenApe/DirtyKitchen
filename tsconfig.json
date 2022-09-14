@@ -10,13 +10,13 @@
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "dist",
+    "outDir": "lib",
     "pretty": true,
     "removeComments": true,
-    "rootDir": "lib",
+    "rootDir": "src",
     "strict": true,
     "stripInternal": true,
     "target": "ES2022"
   },
-  "exclude": ["node_modules", "dist", "src/**/*.spec.ts"]
+  "exclude": ["node_modules", "dist", "src/**/__tests__"]
 }
