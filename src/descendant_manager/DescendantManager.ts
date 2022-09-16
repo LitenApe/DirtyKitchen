@@ -1,13 +1,41 @@
 import { getNextIndex, getPreviousIndex, sortNodes } from './utils';
 import { isNull, isUndefined } from '../type_checks';
 
+type Observer = (descendants: Map<Element, number>) => void;
+
 /**
  * Keep track of where HTML nodes are in the DOM Tree in
  * relation to each other by registering and sorting nodes
  * of interest.
  */
 export class DescendantManager {
+  private _observers: Array<Observer> = [];
   private _descendants = new Map<Element, number>();
+
+  /**
+   * Subscribe to changes in descendants
+   * @param callback callback to be invoked on change
+   */
+  subscribe(callback: Observer): void {
+    this._observers.push(callback);
+  }
+
+  /**
+   * Unsubscribe to changes in descendants
+   * @param callback callback to be remove from subscription list
+   */
+  unsubscribe(callback: Observer): void {
+    this._observers = this._observers.filter(
+      (observer) => observer !== callback,
+    );
+  }
+
+  /**
+   * notify subscribers with map of descedants and their position in the hierachy
+   */
+  private notifyObservers(): void {
+    this._observers.forEach((callback) => callback(this._descendants));
+  }
 
   /**
    * Add a node to the list of descendant, to find out
@@ -22,6 +50,7 @@ export class DescendantManager {
 
     this._descendants.set(node, -1);
     this.sort();
+    this.notifyObservers();
     return this.getIndex(node);
   }
 
@@ -37,6 +66,7 @@ export class DescendantManager {
 
     this._descendants.delete(node);
     this.sort();
+    this.notifyObservers();
   }
 
   /**
