@@ -159,4 +159,115 @@ describe('DescendantManager', () => {
     expect(manager.getPrevious(nodeOne, true)).toBe(nodeTwo);
     expect(manager.getNext(nodeTwo, true)).toBe(nodeOne);
   });
+
+  test('subscriber is notified when node is registered', () => {
+    const manager = new DescendantManager();
+    const subscriber = jest.fn();
+
+    document.body.innerHTML = `
+      <div id="node_1"></div>
+    `;
+
+    const nodeOne = document.querySelector('#node_1');
+    manager.subscribe(subscriber);
+
+    expect(subscriber).not.toBeCalled();
+    manager.register(nodeOne);
+    expect(subscriber).toBeCalledTimes(1);
+  });
+
+  test('subscriber is notified when node is unregistered', () => {
+    const manager = new DescendantManager();
+    const subscriber = jest.fn();
+
+    document.body.innerHTML = `
+      <div id="node_1"></div>
+    `;
+
+    const nodeOne = document.querySelector('#node_1');
+    manager.register(nodeOne);
+    manager.subscribe(subscriber);
+
+    expect(subscriber).not.toBeCalled();
+    manager.unregister(nodeOne);
+    expect(subscriber).toBeCalledTimes(1);
+  });
+
+  test('subscriber is not notified after unsubscribing', () => {
+    const manager = new DescendantManager();
+    const subscriber = jest.fn();
+
+    document.body.innerHTML = `
+      <div id="node_1"></div>
+    `;
+
+    const nodeOne = document.querySelector('#node_1');
+    manager.subscribe(subscriber);
+
+    expect(subscriber).not.toBeCalled();
+    manager.register(nodeOne);
+    expect(subscriber).toBeCalledTimes(1);
+
+    manager.unsubscribe(subscriber);
+    expect(subscriber).toBeCalledTimes(1);
+    manager.unregister(nodeOne);
+    expect(subscriber).toBeCalledTimes(1);
+  });
+
+  test('nodemap is returned with subscription callback', () => {
+    const manager = new DescendantManager();
+    const subscriber = jest.fn();
+
+    document.body.innerHTML = `
+      <div id="node_1"></div>
+      <div id="node_2"></div>
+    `;
+
+    const nodeOne = document.querySelector('#node_1');
+    const nodeTwo = document.querySelector('#node_2');
+    manager.subscribe(subscriber);
+
+    manager.register(nodeOne);
+    const firstCallbackExecution = subscriber.mock.lastCall[0];
+    expect(firstCallbackExecution).toBeDefined();
+    expect(Array.from(firstCallbackExecution.keys())).toHaveLength(1);
+    expect(firstCallbackExecution.get(nodeOne)).toBe(0);
+
+    manager.register(nodeTwo);
+    const secondCallbackExecution = subscriber.mock.lastCall[0];
+    expect(secondCallbackExecution).toBeDefined();
+    expect(Array.from(secondCallbackExecution.keys())).toHaveLength(2);
+    expect(firstCallbackExecution.get(nodeOne)).toBe(0);
+    expect(secondCallbackExecution.get(nodeTwo)).toBe(1);
+  });
+
+  test('all subscribers are notified', () => {
+    const manager = new DescendantManager();
+    const subscriberOne = jest.fn();
+    const subscriberTwo = jest.fn();
+
+    document.body.innerHTML = `
+      <div id="node_1"></div>
+      <div id="node_2"></div>
+    `;
+
+    const nodeOne = document.querySelector('#node_1');
+    const nodeTwo = document.querySelector('#node_2');
+
+    manager.subscribe(subscriberOne);
+    manager.subscribe(subscriberTwo);
+
+    expect(subscriberOne).not.toBeCalled();
+    expect(subscriberTwo).not.toBeCalled();
+
+    manager.register(nodeOne);
+    expect(subscriberOne).toBeCalledTimes(1);
+    expect(subscriberTwo).toBeCalledTimes(1);
+
+    manager.unsubscribe(subscriberOne);
+
+    manager.register(nodeTwo);
+    expect(subscriberOne).toBeCalledTimes(1);
+    expect(subscriberTwo).toBeCalledTimes(2);
+  });
 });
