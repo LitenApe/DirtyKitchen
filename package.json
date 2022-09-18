@@ -6,6 +6,7 @@
     "build": "npm run clean && npm run compile",
     "clean": "rm -rf ./lib",
     "compile": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "format": "eslint src/** --fix"
   },
