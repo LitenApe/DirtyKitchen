@@ -1,5 +1,11 @@
 import { isDefined } from '../type_checks';
 
+type GenericFunction<P extends Array<unknown>> = (...params: P) => void;
+type Cancelable = {
+  readonly cancel: () => void;
+  readonly flush: () => void;
+};
+
 /**
  * Delay function invocation until after a set time
  * has elapsed since the last time the debounced function
@@ -11,11 +17,17 @@ import { isDefined } from '../type_checks';
 export function debounce<P extends Array<unknown>>(
   func: (...params: P) => void,
   delay = 300,
-): [(...params: P) => void, { flush: () => void; cancel: () => void }] {
+): GenericFunction<P> & Cancelable {
   let timer: NodeJS.Timeout | undefined;
   let lastParams: P | undefined;
 
-  function debouncedFunction(...params: P): void {
+  /**
+   * debounced function, delays execution of a given
+   * function until x milliseconds after last time the
+   * debounced function was invoked
+   * @param params arguments to be passed to the function
+   */
+  function debounced(...params: P): void {
     lastParams = params;
     clearTimeout(timer);
 
@@ -25,17 +37,25 @@ export function debounce<P extends Array<unknown>>(
     }, delay);
   }
 
-  function cancel() {
+  /**
+   * resets the debounced function without
+   * invoking the function
+   */
+  debounced.cancel = function (): void {
     clearTimeout(timer);
     timer = undefined;
-  }
+  };
 
-  function flush(): void {
-    cancel();
+  /**
+   * resets the debounced function in addition
+   * to invoking the function straight away
+   */
+  debounced.flush = function (): void {
+    this.cancel();
     if (isDefined(lastParams)) {
       func(...lastParams);
     }
-  }
+  };
 
-  return [debouncedFunction, { flush, cancel }];
+  return debounced;
 }

@@ -12,30 +12,30 @@ describe('debounce', () => {
 
   test('function is not executed immedietly', () => {
     const mockFn = jest.fn();
-    const [debouncedFn] = debounce(mockFn);
+    const debounced = debounce(mockFn);
 
     expect(mockFn).not.toBeCalled();
-    debouncedFn();
+    debounced();
     expect(mockFn).not.toBeCalled();
   });
 
   test('function is not executed on consecutive invocations', () => {
     const mockFn = jest.fn();
-    const [debouncedFn] = debounce(mockFn);
+    const debounced = debounce(mockFn);
 
     expect(mockFn).not.toBeCalled();
-    debouncedFn();
+    debounced();
     expect(mockFn).not.toBeCalled();
-    debouncedFn();
+    debounced();
     expect(mockFn).not.toBeCalled();
   });
 
   test('function is executed after timer is exhausted', () => {
     const mockFn = jest.fn();
-    const [debouncedFn] = debounce(mockFn);
+    const debounced = debounce(mockFn);
 
     expect(mockFn).not.toBeCalled();
-    debouncedFn();
+    debounced();
     expect(mockFn).not.toBeCalled();
     jest.runAllTimers();
     expect(mockFn).toBeCalledTimes(1);
@@ -43,23 +43,23 @@ describe('debounce', () => {
 
   test('cancel prevents function from getting invoked', () => {
     const mockFn = jest.fn();
-    const [debouncedFn, { cancel }] = debounce(mockFn);
+    const debounced = debounce(mockFn);
 
     expect(mockFn).not.toBeCalled();
-    debouncedFn();
+    debounced();
     expect(mockFn).not.toBeCalled();
-    cancel();
+    debounced.cancel();
     jest.runAllTimers();
     expect(mockFn).not.toBeCalled();
   });
 
   test('flush invokes function immediately', () => {
     const mockFn = jest.fn();
-    const [debouncedFn, { flush }] = debounce(mockFn);
+    const debounced = debounce(mockFn);
 
     expect(mockFn).not.toBeCalled();
-    debouncedFn();
-    flush();
+    debounced();
+    debounced.flush();
     expect(mockFn).toBeCalledTimes(1);
   });
 });
