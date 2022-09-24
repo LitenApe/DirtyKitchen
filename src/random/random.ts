@@ -1,3 +1,15 @@
+function randomNumber(min: number, max: number, floor?: boolean): number {
+  const number = Math.random() * (max - min) + min;
+  return floor ? Math.floor(number) : number;
+}
+
+function randomArrayElement<T>(array: Array<T>): T {
+  const min = 0;
+  const max = array.length - 1;
+  const index = randomNumber(min, max, true);
+  return array[index];
+}
+
 /**
  * Retrieve a random item from the supplied list
  * @param arr list of items we want to extract an element from
@@ -19,12 +31,9 @@ export function random<T>(
   const isArray = Array.isArray(arrOrMin);
 
   if (isArray) {
-    const arr = arrOrMin;
-    return arr[random(0, arrOrMin.length - 1, true)];
+    return randomArrayElement(arrOrMin);
   } else if (typeof arrOrMin === 'number' && typeof max === 'number') {
-    const min = arrOrMin;
-    const number = Math.random() * (max - min) + min;
-    return floor ? Math.floor(number) : number;
+    return randomNumber(arrOrMin, max, floor);
   } else {
     throw new Error(
       'Invalid arguments! Either provide an array or boundary values',
