@@ -68,9 +68,9 @@ describe('retrieves random element from array', () => {
     expect(value).toBe('fourth');
   });
 
-  test('returns second element in array when random number is 0.5', () => {
+  test('returns third element in array when random number is 0.49', () => {
     const mock = jest.spyOn(Math, 'random');
-    mock.mockReturnValue(0.5);
+    mock.mockReturnValue(0.49);
 
     const array = ['first', 'second', 'third', 'fourth'];
 
@@ -78,9 +78,9 @@ describe('retrieves random element from array', () => {
     expect(value).toBe('second');
   });
 
-  test('returns third element in array when random number is 0.75', () => {
+  test('returns third element in array when random number is 0.51', () => {
     const mock = jest.spyOn(Math, 'random');
-    mock.mockReturnValue(0.75);
+    mock.mockReturnValue(0.51);
 
     const array = ['first', 'second', 'third', 'fourth'];
 

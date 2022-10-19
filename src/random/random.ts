@@ -1,6 +1,6 @@
 function randomNumber(min: number, max: number, floor?: boolean): number {
   const number = Math.random() * (max - min) + min;
-  return floor ? Math.floor(number) : number;
+  return floor ? Math.round(number) : number;
 }
 
 function randomArrayElement<T>(array: Array<T>): T {
