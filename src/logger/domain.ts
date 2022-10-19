@@ -1,4 +1,4 @@
-export interface LoggSource {
+export interface Source {
   trace: (message: string) => void;
   debug: (message: string) => void;
   info: (message: string) => void;
@@ -6,10 +6,4 @@ export interface LoggSource {
   error: (message: string) => void;
 }
 
-export enum LoggLevel {
-  TRACE = 'trace',
-  DEBUG = 'debug',
-  INFO = 'info',
-  WARN = 'warn',
-  ERROR = 'error',
-}
+export type Level = 'trace' | 'debug' | 'info' | 'warn' | 'error';

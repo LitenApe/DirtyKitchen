@@ -1,3 +1,3 @@
-export { Logger } from './Logger';
+export { Logger, factory } from './Logger';
 
-export type { LoggSource } from './domain';
+export type { Source } from './domain';
