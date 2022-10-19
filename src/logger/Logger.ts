@@ -15,7 +15,9 @@ export class Logger {
 
   private loggMessage(level: Level, ...message: Array<unknown>): void {
     if (!mute(this.#level, level)) {
-      this.#src[level](`[name=${this.#name}][level=${level}]: ${message}`);
+      this.#src[level](
+        `[name=${this.#name}][level=${level}]: ${message.join(' ')}`,
+      );
     }
   }
 
