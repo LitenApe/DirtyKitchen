@@ -1,6 +1,6 @@
 import { Level, Source } from './domain';
 
-import { muteLogg } from './utils';
+import { mute } from './utils';
 
 export class Logger {
   #name: string;
@@ -14,7 +14,7 @@ export class Logger {
   }
 
   private loggMessage(level: Level, ...message: Array<unknown>): void {
-    if (!muteLogg(this.#level, level)) {
+    if (!mute(this.#level, level)) {
       this.#src[level](`[name=${this.#name}][level=${level}]: ${message}`);
     }
   }

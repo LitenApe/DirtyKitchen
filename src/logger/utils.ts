@@ -1,17 +1,11 @@
 import { Level } from './domain';
 
-const logLevelHierachy: Array<Level> = [
-  'trace',
-  'debug',
-  'info',
-  'warn',
-  'error',
-];
+const levelHierachy: Array<Level> = ['trace', 'debug', 'info', 'warn', 'error'];
 
-function getLogLevel(level: Level): number {
-  return logLevelHierachy.indexOf(level);
+function getLevel(level: Level): number {
+  return levelHierachy.indexOf(level);
 }
 
-export function muteLogg(enabledLevel: Level, currentLevel: Level): boolean {
-  return getLogLevel(currentLevel) >= getLogLevel(enabledLevel);
+export function mute(enabledLevel: Level, currentLevel: Level): boolean {
+  return getLevel(currentLevel) >= getLevel(enabledLevel);
 }
