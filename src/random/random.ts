@@ -1,6 +1,6 @@
-function randomNumber(min: number, max: number, floor?: boolean): number {
+function randomNumber(min: number, max: number, round?: boolean): number {
   const number = Math.random() * (max - min) + min;
-  return floor ? Math.round(number) : number;
+  return round ? Math.round(number) : number;
 }
 
 function randomArrayElement<T>(array: Array<T>): T {
@@ -20,20 +20,20 @@ export function random<T>(arr: Array<T>): T;
  * Retrieve a random number between two boundary values
  * @param {number} min minimum value to be returned
  * @param {number} max maximum value to be returned
- * @param {boolean} floor a flag to decide if the function should remove decimals
+ * @param {boolean} round a flag to decide if the function should round to closes integer
  */
-export function random(min: number, max: number, floor?: boolean): number;
+export function random(min: number, max: number, round?: boolean): number;
 export function random<T>(
   arrOrMin: Array<T> | number,
   max?: number,
-  floor?: boolean,
+  round?: boolean,
 ): T | number {
   const isArray = Array.isArray(arrOrMin);
 
   if (isArray) {
     return randomArrayElement(arrOrMin);
   } else if (typeof arrOrMin === 'number' && typeof max === 'number') {
-    return randomNumber(arrOrMin, max, floor);
+    return randomNumber(arrOrMin, max, round);
   } else {
     throw new Error(
       'Invalid arguments! Either provide an array or boundary values',
