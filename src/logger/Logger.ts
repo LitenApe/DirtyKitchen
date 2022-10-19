@@ -13,7 +13,7 @@ export class Logger {
     this.#level = level ?? 'warn';
   }
 
-  private loggMessage(level: Level, ...message: Array<unknown>): void {
+  private logg(level: Level, ...message: Array<unknown>): void {
     if (!mute(this.#level, level)) {
       this.#src[level](
         `[name=${this.#name}][level=${level}]: ${message.join(' ')}`,
@@ -22,23 +22,23 @@ export class Logger {
   }
 
   trace(...args: Array<unknown>): void {
-    this.loggMessage('trace', args);
+    this.logg('trace', args);
   }
 
   debug(...args: Array<unknown>): void {
-    this.loggMessage('debug', args);
+    this.logg('debug', args);
   }
 
   info(...args: Array<unknown>): void {
-    this.loggMessage('info', args);
+    this.logg('info', args);
   }
 
   warn(...args: Array<unknown>): void {
-    this.loggMessage('warn', args);
+    this.logg('warn', args);
   }
 
   error(...args: Array<unknown>): void {
-    this.loggMessage('error', args);
+    this.logg('error', args);
   }
 }
 
