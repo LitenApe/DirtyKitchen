@@ -1,3 +1,3 @@
 export { Logger, factory } from './Logger';
 
-export type { Source } from './domain';
+export type { Source, Level } from './domain';
