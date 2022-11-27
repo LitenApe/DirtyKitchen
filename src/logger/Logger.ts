@@ -7,17 +7,15 @@ export class Logger {
   #src: Source;
   #level: Level;
 
-  constructor(name: string, level?: Level, src?: Source) {
+  constructor(name: string, level: Level, src: Source) {
     this.#name = name;
-    this.#src = src ?? globalThis.console;
-    this.#level = level ?? 'warn';
+    this.#src = src;
+    this.#level = level;
   }
 
   private logg(level: Level, ...message: Array<unknown>): void {
     if (!mute(this.#level, level)) {
-      this.#src[level](
-        `[name=${this.#name}][level=${level}]: ${message.join(' ')}`,
-      );
+      this.#src[level](`[name=${this.#name}]: ${message.join(' ')}`);
     }
   }
 
@@ -42,6 +40,6 @@ export class Logger {
   }
 }
 
-export function factory(level: Level, src?: Source): (name: string) => Logger {
+export function factory(level: Level, src: Source): (name: string) => Logger {
   return (name: string): Logger => new Logger(name, level, src);
 }
