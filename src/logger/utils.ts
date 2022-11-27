@@ -1,9 +1,19 @@
 import { Level } from './domain';
 
-const levelHierachy: Array<Level> = ['trace', 'debug', 'info', 'warn', 'error'];
+const hierachy: Array<Level> = ['trace', 'debug', 'info', 'warn', 'error'];
 
 function getLevel(level: Level): number {
-  return levelHierachy.indexOf(level);
+  const index = hierachy.indexOf(level);
+
+  if (index === -1) {
+    throw new Error(
+      `Encountered an illegal logg level of [level=${level}]. Logg levels must be one of [${hierachy.join(
+        ', ',
+      )}]`,
+    );
+  }
+
+  return index;
 }
 
 export function mute(enabledLevel: Level, currentLevel: Level): boolean {
