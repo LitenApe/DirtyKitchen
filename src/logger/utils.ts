@@ -16,6 +16,6 @@ function getLevel(level: Level): number {
   return index;
 }
 
-export function mute(enabledLevel: Level, currentLevel: Level): boolean {
+export function enabled(enabledLevel: Level, currentLevel: Level): boolean {
   return getLevel(currentLevel) >= getLevel(enabledLevel);
 }

@@ -1,6 +1,6 @@
 import { Level, Source } from './domain';
 
-import { mute } from './utils';
+import { enabled } from './utils';
 
 export class Logger {
   #name: string;
@@ -14,7 +14,7 @@ export class Logger {
   }
 
   private logg(level: Level, ...message: Array<unknown>): void {
-    if (!mute(this.#level, level)) {
+    if (enabled(this.#level, level)) {
       this.#src[level](`[name=${this.#name}]: ${message.join(' ')}`);
     }
   }
