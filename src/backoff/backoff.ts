@@ -6,6 +6,15 @@ function invokeCallback<R>(f: () => Promise<R>, delay: number): Promise<R> {
   });
 }
 
+/**
+ * Attempt to invoke a given callback x amount of times, with an increasing
+ * delay between each time which grows exponentially
+ *
+ * @param f callback which you want to invoke
+ * @param attempts number of retries
+ * @param delay milliseconds before attempting to invoke the callback again
+ * @returns resolved value from callback if successful
+ */
 export async function backoff<R>(
   f: () => Promise<R>,
   attempts: number,
