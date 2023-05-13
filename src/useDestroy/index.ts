@@ -1,0 +1,1 @@
+export { useDestroy } from './useDestroy';

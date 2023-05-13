@@ -1,5 +1,8 @@
 import { useCallback, useRef } from 'react';
 
+import { isNull } from '../type_checks';
+import { useDestroy } from '../useDestroy';
+
 type GenericFunction<P extends Array<unknown>, R = unknown> = (...args: P) => R;
 type ReturnFunctions<P extends Array<unknown>> = {
   cancel: () => void;
@@ -11,7 +14,13 @@ export function useDebounce<P extends Array<unknown>>(
   callback: GenericFunction<P>,
   delay = 300,
 ): ReturnFunctions<P> {
-  const timer = useRef<NodeJS.Timer | null>(null);
+  const timeout = useRef<NodeJS.Timer | null>(null);
+
+  useDestroy(() => {
+    if (!isNull(timeout.current)) {
+      clearTimeout(timeout.current);
+    }
+  });
 
   /**
    * debounce function, delays execution of callback
@@ -20,11 +29,11 @@ export function useDebounce<P extends Array<unknown>>(
    */
   const execute = useCallback(
     (...args: P): void => {
-      if (timer.current) {
-        clearTimeout(timer.current);
+      if (timeout.current) {
+        clearTimeout(timeout.current);
       }
 
-      timer.current = setInterval(() => {
+      timeout.current = setInterval(() => {
         callback(...args);
       }, delay);
     },
@@ -36,10 +45,10 @@ export function useDebounce<P extends Array<unknown>>(
    * without invoking the callback
    */
   const cancel = useCallback(() => {
-    if (timer.current) {
-      clearTimeout(timer.current);
+    if (timeout.current) {
+      clearTimeout(timeout.current);
     }
-    timer.current = null;
+    timeout.current = null;
   }, []);
 
   /**
