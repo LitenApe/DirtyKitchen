@@ -1,1 +1,0 @@
-export { useDestroy } from './useDestroy';

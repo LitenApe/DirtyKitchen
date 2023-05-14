@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 
 import { isNull } from '../type_checks';
-import { useDestroy } from '../useDestroy';
+import { useOnUnmount } from '../useOnUnmount';
 
 type GenericFunction<P extends Array<unknown>, R = unknown> = (...args: P) => R;
 
@@ -13,7 +13,7 @@ export function useThrottle<P extends Array<unknown>>(
   const timeout = useRef<NodeJS.Timer | null>(null);
   const lastCall = useRef<P | null>(null);
 
-  useDestroy(() => {
+  useOnUnmount(() => {
     if (!isNull(timeout.current)) {
       clearTimeout(timeout.current);
     }

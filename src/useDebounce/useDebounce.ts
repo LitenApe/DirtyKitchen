@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react';
 
 import { isNull } from '../type_checks';
-import { useDestroy } from '../useDestroy';
+import { useOnUnmount } from '../useOnUnmount';
 
 type GenericFunction<P extends Array<unknown>, R = unknown> = (...args: P) => R;
 type ReturnFunctions<P extends Array<unknown>> = {
@@ -16,7 +16,7 @@ export function useDebounce<P extends Array<unknown>>(
 ): ReturnFunctions<P> {
   const timeout = useRef<NodeJS.Timer | null>(null);
 
-  useDestroy(() => {
+  useOnUnmount(() => {
     if (!isNull(timeout.current)) {
       clearTimeout(timeout.current);
     }
